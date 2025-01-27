@@ -8,8 +8,8 @@ add_action('admin_menu', 'hooksure_admin_menu', 20);
 function hooksure_admin_menu() {
     add_submenu_page(
         'tools.php',                        // Parent slug (Tools menu)
-        'Hooksure Settings',                // Page title
-        'Hooksure',                         // Menu title
+        __('Hooksure Settings', 'hooksure'), // Page title
+        __('Hooksure', 'hooksure'),         // Menu title
         'manage_options',                   // Capability
         'hooksure_settings',                // Menu slug
         'render_hooksure_admin_page'        // Callback function to render the page
@@ -19,80 +19,110 @@ function hooksure_admin_menu() {
 // Render the admin page for managing form-webhook pairs
 function render_hooksure_admin_page() {
     // Handle form submission for saving new form-webhook pairs
-    if (isset($_POST['hooksure_nonce']) && wp_verify_nonce($_POST['hooksure_nonce'], 'save_hooksure_settings')) {
-        
-        // Get and sanitize form data
-        $form_id = sanitize_text_field($_POST['form_id']);
-        $webhook_url = esc_url_raw($_POST['webhook_url']);
-        $form_webhooks = get_option('hooksure_webhooks', []);
+    if (isset($_POST['hooksure_nonce'])) {
+        $nonce = sanitize_text_field(wp_unslash($_POST['hooksure_nonce']));
+        if (wp_verify_nonce($nonce, 'save_hooksure_settings')) {
+            // Get and sanitize form data
+            $form_id = isset($_POST['form_id']) ? sanitize_text_field(wp_unslash($_POST['form_id'])) : '';
+            $webhook_url = isset($_POST['webhook_url']) ? esc_url_raw(wp_unslash($_POST['webhook_url'])) : '';
+            $form_webhooks = get_option('hooksure_webhooks', []);
 
-        // Save new form ID and webhook URL pairs
-        if (!empty($form_id) && !empty($webhook_url)) {
-            $form_webhooks[$form_id] = $webhook_url;
-            update_option('hooksure_webhooks', $form_webhooks);
-            echo '<div class="updated"><p>Webhook settings saved successfully.</p></div>';
+            // Save new form ID and webhook URL pairs
+            if (!empty($form_id) && !empty($webhook_url)) {
+                $form_webhooks[$form_id] = $webhook_url;
+                update_option('hooksure_webhooks', $form_webhooks);
+                echo '<div class="updated"><p>' . esc_html__('Webhook settings saved successfully.', 'hooksure') . '</p></div>';
+            }
         }
     }
 
     // Handle deletion of form-webhook pairs
     if (isset($_GET['delete_form_id'])) {
         $form_webhooks = get_option('hooksure_webhooks', []);
-        $delete_form_id = sanitize_text_field($_GET['delete_form_id']);
+        $delete_form_id = sanitize_text_field(wp_unslash($_GET['delete_form_id']));
         unset($form_webhooks[$delete_form_id]);
         update_option('hooksure_webhooks', $form_webhooks);
-        echo '<div class="updated"><p>Form Webhook deleted successfully.</p></div>';
+        echo '<div class="updated"><p>' . esc_html__('Form Webhook deleted successfully.', 'hooksure') . '</p></div>';
     }
 
     // Retrieve saved form-webhook pairs
     $form_webhooks = get_option('hooksure_webhooks', []);
 
+    // Fetch all forms of type SRFM_FORMS_POST_TYPE
+    $args = [
+        'post_type'   => SRFM_FORMS_POST_TYPE,
+        'post_status' => 'publish',
+        'posts_per_page' => -1,
+    ];
+    $forms = get_posts($args);
+    $form_names = [];
+    foreach ($forms as $form) {
+        $form_names[$form->ID] = $form->post_title; // Map form ID to name
+    }
+
     // Output the admin page HTML
     ?>
     <div class="wrap">
-        <h1>Hooksure Settings</h1>
+        <h1><?php echo esc_html__('Hooksure Settings', 'hooksure'); ?></h1>
         
         <!-- Form to add new webhook mappings -->
         <form method="post">
             <?php wp_nonce_field('save_hooksure_settings', 'hooksure_nonce'); ?>
-            <h2>Add New Form Webhook</h2>
+            <h2><?php echo esc_html__('Add New Form Webhook', 'hooksure'); ?></h2>
             <table class="form-table">
                 <tr>
-                    <th scope="row"><label for="form_id">Form ID</label></th>
-                    <td><input type="text" id="form_id" name="form_id" /></td>
+                    <th scope="row"><label for="form_id"><?php echo esc_html__('Form', 'hooksure'); ?></label></th>
+                    <td>
+                        <select id="form_id" name="form_id">
+                            <?php if (!empty($forms)): ?>
+                                <?php foreach ($forms as $form): ?>
+                                    <option value="<?php echo esc_attr($form->ID); ?>">
+                                        <?php echo esc_html($form->post_title); ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <option value=""><?php echo esc_html__('No forms available', 'hooksure'); ?></option>
+                            <?php endif; ?>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
-                    <th scope="row"><label for="webhook_url">Webhook URL</label></th>
+                    <th scope="row"><label for="webhook_url"><?php echo esc_html__('Webhook URL', 'hooksure'); ?></label></th>
                     <td><input type="url" id="webhook_url" name="webhook_url" /></td>
                 </tr>
             </table>
 
-            <p class="submit"><button type="submit" class="button button-primary">Save Settings</button></p>
+            <p class="submit"><button type="submit" class="button button-primary"><?php echo esc_html__('Save Settings', 'hooksure'); ?></button></p>
         </form>
 
         <!-- List existing form-webhook mappings -->
-        <h2>Existing Form Webhooks</h2>
+        <h2><?php echo esc_html__('Existing Form Webhooks', 'hooksure'); ?></h2>
         <table class="widefat">
             <thead>
                 <tr>
-                    <th>Form ID</th>
-                    <th>Webhook URL</th>
-                    <th>Actions</th>
+                    <th><?php echo esc_html__('Form ID', 'hooksure'); ?></th>
+                    <th><?php echo esc_html__('Form Name', 'hooksure'); ?></th>
+                    <th><?php echo esc_html__('Webhook URL', 'hooksure'); ?></th>
+                    <th><?php echo esc_html__('Actions', 'hooksure'); ?></th>
                 </tr>
             </thead>
             <tbody>
-                <?php if (!empty($form_webhooks)): ?>
-                    <?php foreach ($form_webhooks as $form_id => $webhook_url): ?>
-                        <tr>
-                            <td><?php echo esc_html($form_id); ?></td>
-                            <td><?php echo esc_url($webhook_url); ?></td>
-                            <td>
-                                <a href="<?php echo add_query_arg('delete_form_id', $form_id); ?>" class="button">Delete</a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr><td colspan="3">No webhook mappings found.</td></tr>
-                <?php endif; ?>
+            <?php if (!empty($form_webhooks)): ?>
+                <?php foreach ($form_webhooks as $form_id => $webhook_url): ?>
+                    <tr>
+                        <td><?php echo esc_html($form_id); ?></td>
+                        <td><?php echo esc_html($form_names[$form_id] ?? esc_html__('Unknown Form', 'hooksure')); ?></td>
+                        <td><?php echo esc_url($webhook_url); ?></td>
+                        <td>
+                            <a href="<?php echo esc_url(add_query_arg('delete_form_id', $form_id)); ?>" class="button">
+                                <?php echo esc_html__('Delete', 'hooksure'); ?>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr><td colspan="4"><?php echo esc_html__('No webhook mappings found.', 'hooksure'); ?></td></tr>
+            <?php endif; ?>
             </tbody>
         </table>
     </div>

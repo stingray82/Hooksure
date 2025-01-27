@@ -1,10 +1,16 @@
 <?php
 /*
 Plugin Name: Hooksure
-Description: Add webhooks to SureForms for free.
-Version: 1.0
-Author: Stingray82
+Plugin URI: https://github.com/stingray82/hooksure/
+Description: A simple plugin to download and activate WordPress plugins from a URL, including handling redirects.
+Version: 1.1
+Author: Stingray82 & Reallyusefulplugins
+Author URI: https://Reallyusefulplugins.com
+License: GPLv2 or later
+Text Domain: hooksure
+Domain Path: /languages
 */
+
 
 // Exit if accessed directly.
 defined('ABSPATH') || exit;
