@@ -5,6 +5,20 @@ Lets you add a web hook to a form on submission to the free SureForms Plugin
 
  
 
+V1.1
+
+Added dynamic form fetching to replace manual form ID entry.
+
+ 
+
+Improved admin interface for better usability.
+
+ 
+
+Tested compatibility with WordPress 6.4.
+
+ 
+
 [Video Walk Through & Demo](https://youtu.be/me1rtzqg-Is)
 
  
