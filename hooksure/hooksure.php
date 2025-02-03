@@ -2,8 +2,8 @@
 /*
 Plugin Name: Hooksure
 Plugin URI: https://github.com/stingray82/hooksure/
-Description: A simple plugin to download and activate WordPress plugins from a URL, including handling redirects.
-Version: 1.1
+Description: Add webhooks to SureForms for free.
+Version: 1.11
 Author: Stingray82 & Reallyusefulplugins
 Author URI: https://Reallyusefulplugins.com
 License: GPLv2 or later
