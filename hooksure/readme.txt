@@ -42,6 +42,9 @@ Webhook Management - View, edit, and delete existing mappings.
 
 == Changelog ==
 
+= 1.11 =
+Fixed Plugin Description issue
+
 = 1.1 =
 
 Added dynamic form fetching to replace manual form ID entry.
