@@ -3,7 +3,7 @@ Contributors: stingray82, Reallyusefulplugins.com
 Tags: webhook, form integrations, automation, forms
 Requires at least: 6.5
 Tested up to: 6.7
-Stable tag: 1.1
+Stable tag: 1.12
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,9 @@ Form Selector - Dynamically fetched forms for simplified mapping.
 Webhook Management - View, edit, and delete existing mappings.
 
 == Changelog ==
+
+= 1.12 =
+Handle SureForms not being installed before installing HookSure gracefully, add wp-safe redirect on deletion to prevent loop of deletion of newly added hook to the same id that was just deleted.
 
 = 1.11 =
 Fixed Plugin Description issue

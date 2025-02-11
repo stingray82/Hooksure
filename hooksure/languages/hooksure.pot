@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Hooksure 1.1\n"
+"Project-Id-Version: Hooksure 1.12\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/hooksure\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-01-26T21:06:10+00:00\n"
+"POT-Creation-Date: 2025-02-11T20:20:35+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: hooksure\n"
@@ -27,7 +27,7 @@ msgstr ""
 
 #. Description of the plugin
 #: hooksure.php
-msgid "A simple plugin to download and activate WordPress plugins from a URL, including handling redirects."
+msgid "Add webhooks to SureForms for free."
 msgstr ""
 
 #. Author of the plugin
@@ -41,63 +41,76 @@ msgid "https://Reallyusefulplugins.com"
 msgstr ""
 
 #: inc/admin.php:11
-#: inc/admin.php:66
+#: inc/admin.php:25
+#: inc/admin.php:80
 msgid "Hooksure Settings"
 msgstr ""
 
-#: inc/admin.php:34
-msgid "Webhook settings saved successfully."
+#: inc/admin.php:27
+msgid "Error:"
 msgstr ""
 
-#: inc/admin.php:45
+#: inc/admin.php:27
+msgid "Hooksure requires SureForms to be installed and activated for it to function. Please install SureForms."
+msgstr ""
+
+#: inc/admin.php:39
 msgid "Form Webhook deleted successfully."
 msgstr ""
 
-#: inc/admin.php:71
+#: inc/admin.php:57
+msgid "Webhook settings saved successfully."
+msgstr ""
+
+#: inc/admin.php:85
 msgid "Add New Form Webhook"
 msgstr ""
 
-#: inc/admin.php:74
+#: inc/admin.php:88
 msgid "Form"
 msgstr ""
 
-#: inc/admin.php:84
+#: inc/admin.php:98
 msgid "No forms available"
 msgstr ""
 
-#: inc/admin.php:90
-#: inc/admin.php:105
+#: inc/admin.php:104
+#: inc/admin.php:119
 msgid "Webhook URL"
 msgstr ""
 
-#: inc/admin.php:95
+#: inc/admin.php:109
 msgid "Save Settings"
 msgstr ""
 
-#: inc/admin.php:99
+#: inc/admin.php:113
 msgid "Existing Form Webhooks"
 msgstr ""
 
-#: inc/admin.php:103
+#: inc/admin.php:117
 msgid "Form ID"
 msgstr ""
 
-#: inc/admin.php:104
+#: inc/admin.php:118
 msgid "Form Name"
 msgstr ""
 
-#: inc/admin.php:106
+#: inc/admin.php:120
 msgid "Actions"
 msgstr ""
 
-#: inc/admin.php:114
+#: inc/admin.php:128
 msgid "Unknown Form"
 msgstr ""
 
-#: inc/admin.php:118
+#: inc/admin.php:132
 msgid "Delete"
 msgstr ""
 
-#: inc/admin.php:124
+#: inc/admin.php:139
 msgid "No webhook mappings found."
+msgstr ""
+
+#: inc/admin.php:152
+msgid "Security check failed. Try again."
 msgstr ""

@@ -18,6 +18,29 @@ function hooksure_admin_menu() {
 
 // Render the admin page for managing form-webhook pairs
 function render_hooksure_admin_page() {
+    // Check if SureForms is installed
+    if (!defined('SRFM_FORMS_POST_TYPE')) {
+        ?>
+        <div class="wrap">
+            <h1><?php echo esc_html__('Hooksure Settings', 'hooksure'); ?></h1>
+            <div class="notice notice-error">
+                <p><strong><?php echo esc_html__('Error:', 'hooksure'); ?></strong> <?php echo esc_html__('Hooksure requires SureForms to be installed and activated for it to function. Please install SureForms.', 'hooksure'); ?> </p>
+            </div>
+        </div>
+        <?php
+        return; // Exit early to prevent errors
+    }
+
+
+    // Display deletion success message
+    if (isset($_GET['deleted']) && $_GET['deleted'] == 1) {
+        ?>
+        <div class="notice notice-success is-dismissible">
+            <p><?php echo esc_html__('Form Webhook deleted successfully.', 'hooksure'); ?></p>
+        </div>
+        <?php
+    }
+
     // Handle form submission for saving new form-webhook pairs
     if (isset($_POST['hooksure_nonce'])) {
         $nonce = sanitize_text_field(wp_unslash($_POST['hooksure_nonce']));
@@ -34,15 +57,6 @@ function render_hooksure_admin_page() {
                 echo '<div class="updated"><p>' . esc_html__('Webhook settings saved successfully.', 'hooksure') . '</p></div>';
             }
         }
-    }
-
-    // Handle deletion of form-webhook pairs
-    if (isset($_GET['delete_form_id'])) {
-        $form_webhooks = get_option('hooksure_webhooks', []);
-        $delete_form_id = sanitize_text_field(wp_unslash($_GET['delete_form_id']));
-        unset($form_webhooks[$delete_form_id]);
-        update_option('hooksure_webhooks', $form_webhooks);
-        echo '<div class="updated"><p>' . esc_html__('Form Webhook deleted successfully.', 'hooksure') . '</p></div>';
     }
 
     // Retrieve saved form-webhook pairs
@@ -114,9 +128,10 @@ function render_hooksure_admin_page() {
                         <td><?php echo esc_html($form_names[$form_id] ?? esc_html__('Unknown Form', 'hooksure')); ?></td>
                         <td><?php echo esc_url($webhook_url); ?></td>
                         <td>
-                            <a href="<?php echo esc_url(add_query_arg('delete_form_id', $form_id)); ?>" class="button">
-                                <?php echo esc_html__('Delete', 'hooksure'); ?>
+                            <a href="<?php echo esc_url(wp_nonce_url(admin_url('tools.php?page=hooksure_settings&delete_form_id=' . $form_id), 'hooksure_delete_webhook')); ?>" class="button">
+                            <?php echo esc_html__('Delete', 'hooksure'); ?>
                             </a>
+
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -128,3 +143,27 @@ function render_hooksure_admin_page() {
     </div>
     <?php
 }
+
+function hooksure_handle_deletion() {
+    if (isset($_GET['delete_form_id']) && isset($_GET['_wpnonce'])) {
+        //Securely process nonce
+        $nonce = isset($_GET['_wpnonce']) ? sanitize_text_field(wp_unslash($_GET['_wpnonce'])) : '';
+        if (!wp_verify_nonce($nonce, 'hooksure_delete_webhook')) {
+            wp_die(esc_html__('Security check failed. Try again.', 'hooksure'));
+        }
+
+        // Securely process delete_form_id
+        $form_webhooks = get_option('hooksure_webhooks', []);
+        $delete_form_id = isset($_GET['delete_form_id']) ? sanitize_text_field(wp_unslash($_GET['delete_form_id'])) : '';
+
+        if (!empty($delete_form_id) && isset($form_webhooks[$delete_form_id])) {
+            unset($form_webhooks[$delete_form_id]);
+            update_option('hooksure_webhooks', $form_webhooks);
+        }
+
+        //Redirect with success message
+        wp_safe_redirect(admin_url('tools.php?page=hooksure_settings&deleted=1'));
+        exit;
+    }
+}
+add_action('admin_init', 'hooksure_handle_deletion');
