@@ -1,70 +1,84 @@
 === Hooksure ===
-Contributors: stingray82, Reallyusefulplugins.com
+Contributors: stingray82, reallyusefulplugin
 Tags: webhook, form integrations, automation, forms
 Requires at least: 6.5
 Tested up to: 6.7
-Stable tag: 1.13
+Stable tag: 1.15
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Hooksure allows you to map Sure Form, form submissions to webhooks dynamically within your WordPress admin dashboard without needing the pro plugin.
+Hooksure allows you to map SureForms, form submissions to webhooks dynamically within your WordPress admin dashboard without needing the pro plugin.
 
 == Description ==
 
-Hooksure provides a straightforward way to manage webhooks for your forms. With the latest update, you can dynamically fetch and select your forms from the dropdown, making configuration more seamless and user-friendly.
+Hooksure provides a straightforward way to manage webhooks for your SureForms forms.
+
+Hooksure handles sending webform submissions created in SureForms to your webhook of choice, i.e. Flowmattic, Bit Flows or Pabbly Connect.
+
+**Video Tutorial - Hooksure Setup Guide**  
+[youtube https://www.youtube.com/watch?v=dg-UWhLsEuU]
+
+It allows you to pass that data over to an external service to process it as you would any normal webhook.
+
+Want to send data and receive data back to your SureForms but not use SureTriggers?  
+
+Well, if you want to use Zapier, Flowmattic, Bit Flows, or Pabbly Connect, you can do this with Response for Sureforms, which handles the sending and returning of webform data.
+
+[Try Response for Sureforms in a Sandbox](https://reallyusefulplugins.com/plugins/response-for-sureforms/)  
+
+We've recently implemented dynamic form population and better error handling directly from Response for SureForms into HookSure, making it better than ever than its initial launch.
 
 == Installation ==
 
-Upload the hooksure folder to the /wp-content/plugins/ directory or install the plugin through the WordPress plugins screen directly.
-
-Activate the plugin through the 'Plugins' screen in WordPress.
-
-Navigate to Tools > Hooksure to start mapping your forms to webhooks.
+1. Upload the `hooksure` folder to the `/wp-content/plugins/` directory or install the plugin through the WordPress plugins screen directly.
+2. Activate the plugin through the 'Plugins' screen in WordPress.
+3. Navigate to **Tools → Hooksure** to start mapping your forms to webhooks.
 
 == Frequently Asked Questions ==
 
-= What forms are supported? =
-Hooksure dynamically fetches forms based on the custom post type your site uses. Ensure your form plugin uses a recognizable custom post type.
-
-= Can I use Hooksure with custom forms? =
-Yes! Hooksure dynamically detects forms created using custom post types. For specific integrations, ensure your form plugin uses a supported custom post type.
+= How do I update a form-webhook mapping? =
+Just select the applicable form, paste your new webform URL as you would if adding a webhook for the first time, and save. It will overwrite the webhook URL with the new one.
 
 = How do I delete a form-webhook mapping? =
-In the admin interface, locate the mapping in the "Existing Form Webhooks" table and click "Delete."
+In the admin interface, locate the mapping in the **"Existing Form Webhooks"** table and click **"Delete."**
 
 == Screenshots ==
 
-Admin Dashboard Interface - Add new webhook mappings easily.
-
-Form Selector - Dynamically fetched forms for simplified mapping.
-
-Webhook Management - View, edit, and delete existing mappings.
+1. **Hooksure Plugin Dashboard**  
+   ![Hooksure Plugin Dashboard](assets/screenshot-1.png)  
+   The Main Plugin Dashboard:
+   - Select the applicable webform
+   - Add your Webhook URL
+   - Delete the current webhook
+   - Form ID
 
 == Changelog ==
+= 1.15 =
+- Fix Readme Issues  
+
+= 1.14 =
+- Updated Readme File  
+- Added Screenshot and Video Links  
 
 = 1.13 =
-Added Requires requirement for SureForms
+- Added Requires requirement for SureForms  
 
 = 1.12 =
-Handle SureForms not being installed before installing HookSure gracefully, add wp-safe redirect on deletion to prevent loop of deletion of newly added hook to the same id that was just deleted.
+- Handle SureForms not being installed before installing HookSure gracefully  
+- Add `wp-safe_redirect` on deletion to prevent loop of deletion of newly added hook to the same ID that was just deleted  
 
 = 1.11 =
-Fixed Plugin Description issue
+- Fixed Plugin Description issue  
 
 = 1.1 =
-
-Added dynamic form fetching to replace manual form ID entry.
-
-Improved admin interface for better usability.
-
-Tested compatibility with WordPress 6.4.
+- Added dynamic form fetching to replace manual form ID entry  
+- Improved admin interface for better usability  
+- Tested compatibility with WordPress 6.4  
 
 = 1.0 =
-
-Initial release.
+- Initial release  
 
 == Upgrade Notice ==
 
 = 1.1 =
-Upgrade now to enjoy the new dynamic form fetching feature, making webhook mapping easier than ever!
-
+Upgrade now to enjoy the new **dynamic form fetching** feature, making webhook mapping easier than ever!

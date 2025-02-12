@@ -4,7 +4,7 @@ Plugin Name: Hooksure
 Plugin URI: https://github.com/stingray82/hooksure/
 Requires Plugins: sureforms
 Description: Add webhooks to SureForms for free.
-Version: 1.13
+Version: 1.15
 Author: Stingray82 & Reallyusefulplugins
 Author URI: https://Reallyusefulplugins.com
 License: GPLv2 or later
