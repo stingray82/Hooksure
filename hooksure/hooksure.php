@@ -1,16 +1,19 @@
 <?php
-/*
-Plugin Name: Hooksure
-Plugin URI: https://github.com/stingray82/hooksure/
-Requires Plugins: sureforms
-Description: Add webhooks to SureForms for free.
-Version: 1.15
-Author: Stingray82 & Reallyusefulplugins
-Author URI: https://Reallyusefulplugins.com
-License: GPLv2 or later
-Text Domain: hooksure
-Domain Path: /languages
-*/
+/**
+ * Plugin Name:       Hooksure
+ * Tested up to:      6.7.2
+ * Description:       Add webhooks to SureForms for free.
+ * Requires at least: 6.5
+ * Requires PHP:      7.4
+ * Version:           1.15
+ * Author:            reallyusefulplugins.com
+ * Author URI:        https://reallyusefulplugins.com
+ * License:           GPL-2.0-or-later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain:       hooksure
+ * Website:           https://reallyusefulplugins.com
+ * */
+
 
 
 // Exit if accessed directly.
