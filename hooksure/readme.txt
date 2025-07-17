@@ -2,8 +2,8 @@
 Contributors: stingray82, reallyusefulplugin
 Tags: webhook, form integrations, automation, forms
 Requires at least: 6.5
-Tested up to: 6.7
-Stable tag: 1.15
+Tested up to: 6.8.2
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,6 +17,8 @@ Hooksure handles sending webform submissions created in SureForms to your webhoo
 
 **Video Tutorial - Hooksure Setup Guide**  
 [youtube https://www.youtube.com/watch?v=dg-UWhLsEuU]
+
+[Try hooksure in a Sandbox](https://reallyusefulplugins.com/try-hooksure/)
 
 It allows you to pass that data over to an external service to process it as you would any normal webhook.
 
@@ -53,6 +55,12 @@ In the admin interface, locate the mapping in the **"Existing Form Webhooks"** t
    - Form ID
 
 == Changelog ==
+
+= 1.2 =
+
+- Updated WP Version 6.8.2
+- Tested Using Latest SureForms
+
 = 1.15 =
 - Fix Readme Issues  
 
